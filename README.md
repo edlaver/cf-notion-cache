@@ -1,6 +1,6 @@
-Pathway:
+# Routes:
 
-/cache/{pageId}
+## POST /cache/{pageId}
 
 Triggers the job to fetch the page from Notion:
 - Retrieve recordMap from Notion by pageId
@@ -12,7 +12,7 @@ Triggers the job to fetch the page from Notion:
 		- Rewrite signed image URL with stored image URL
 - Store recordMap into KV by pageId
 
-/{pageId}
+## GET /cache/{pageId}
 
 Loads the recordMap from KV and returns it:
 - Load the recordMap from KV by pageId
