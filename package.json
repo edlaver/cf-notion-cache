@@ -1,0 +1,19 @@
+{
+  "name": "cf-notion-cache",
+  "version": "1.0.0",
+  "devDependencies": {
+    "wrangler": "2.9.0"
+  },
+  "private": false,
+  "scripts": {
+    "start": "wrangler dev",
+    "deploy": "wrangler publish"
+  },
+  "dependencies": {
+    "itty-cors": "^0.3.5",
+    "itty-router": "^3.0.11",
+    "itty-router-extras": "^0.4.2",
+    "ky": "^0.33.2",
+    "notion-client": "file:libs/notion-client-edge-3a97527.tgz"
+  }
+}
