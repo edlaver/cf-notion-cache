@@ -29,7 +29,13 @@ import { putPageToKVCache, getPageFromKVCache } from "./cloudflare-helpers";
 ensureEnvVars();
 
 // create CORS handlers
-const { preflight, corsify } = createCors({ origins: ["*"] }); // From: itty-cors
+const { preflight, corsify } = createCors({
+  methods: ["GET", "POST"],
+  origins: ["*"],
+  headers: {
+    "x-router": "itty-cors",
+  },
+}); // From: itty-cors
 
 // Create a router (note the lack of "new")
 const router = Router();
@@ -48,21 +54,22 @@ router.post("/cache/:pageId", async ({ params }) => {
 
   const recordMap = await putPageToKVCache(pageId);
 
-  return json(recordMap);
+  return corsify(json(recordMap));
 });
 
 //// GET > A cached page from KV, or fetch from Notion if not cached (and store it):
 // E.g. http://localhost:8787/cache/8b943a5d-8a65-4e37-afad-d0f61f06036c => params: { pageId: "8b943a5d-8a65-4e37-afad-d0f61f06036c" }
-router.get("/cache/:pageId", async ({ params }) => {
+//// Cache can be bypassed with ?refetch=true query param
+router.get("/cache/:pageId", async ({ params, query }) => {
   const pageId = params.pageId;
+  const refetch = query.refetch === "true";
 
   console.log(
-    "🔎 > router.get > /cache/:pageId > Fetching Notion page from KV with page id:",
-    pageId
+    `🔎 > router.get > /cache/:pageId?refetch={true|false} > Fetching Notion page from KV with page id: ${pageId}. Forcing refresh: ${refetch}`
   );
 
-  // - Load the recordMap from KV by pageId
-  let cachedPage = await getPageFromKVCache(pageId);
+  // - Load the recordMap from KV by pageId (unless refetch is set to true)
+  let cachedPage = refetch ? null : await getPageFromKVCache(pageId);
 
   // - If not found, cache it using same function as /cache endpoint
   if (!cachedPage) {
