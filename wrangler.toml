@@ -1,6 +1,7 @@
 name = "cf-notion-cache"
 main = "src/index.js"
-compatibility_date = "2023-01-31"
+compatibility_date = "2023-12-01"
+# compatibility_flags = ["nodejs_compat"]
 # node_compat = true
 node_compat = false
 
@@ -16,9 +17,10 @@ kv_namespaces = [
 # Equivalent of .env vars
 # Note: Fill in .dev.vars with the following for development (but don't commit to Git), 
 # and also remember to add the secret(s) to Cloudflare settings.
-# BUT, don't uncomment the secret(s) below, otherwise those settings will be overwritten when running `wrangler publish`
+# BUT, don't uncomment the secret(s) below, otherwise those settings will be overwritten when running `wrangler deploy`
 # See: https://github.com/cloudflare/wrangler2/issues/276#issuecomment-1228631694
 [vars]
+NOTION_SITE_BASE_URL = "https://shopifyapps.notion.site"
 CLOUDINARY_CLOUD_NAME = "dxsljti9a"
 CLOUDINARY_API_KEY = "634166366171861"
 # CLOUDINARY_API_SECRET = "{Add as a secret - don't uncomment}"
