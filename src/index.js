@@ -100,6 +100,7 @@ addEventListener("fetch", (event) =>
 
 function ensureEnvVars() {
   const envVars = [
+    NOTION_SITE_BASE_URL,
     CLOUDINARY_CLOUD_NAME,
     CLOUDINARY_API_KEY,
     CLOUDINARY_API_SECRET,

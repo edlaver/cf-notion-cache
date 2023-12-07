@@ -2,7 +2,7 @@
   "name": "cf-notion-cache",
   "version": "1.0.0",
   "devDependencies": {
-    "wrangler": "2.15.1"
+    "wrangler": "^3.19.0"
   },
   "private": false,
   "scripts": {
@@ -15,5 +15,9 @@
     "itty-router-extras": "^0.4.2",
     "ky": "^0.33.2",
     "notion-client": "file:libs/notion-client-edge-3a97527.tgz"
+  },
+  "dependencies-disabled": {
+    "notion-client-pr-version": "git+https://github.com/NotionX/react-notion-x#pull/394/head",
+    "notion-client": "6.16.0"
   }
 }
